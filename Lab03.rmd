@@ -95,5 +95,5 @@ ggplot(fl_votes) +
 
 What do the visualizations you developed tell you about the 2016 and 2020 Presidential election in Florida? What are limitations of these visualizations?
 
-As we see that they preferred Donald trump over joe byeden
+As we see that they preferred Donald trump over joe byeden.
 
