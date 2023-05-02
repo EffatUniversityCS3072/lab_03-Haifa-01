@@ -1,7 +1,7 @@
 ---
 title: "Lab 03"
-author: ""
-date: ""
+author: "Haifa M Albalochi"
+date: "2 May"
 editor_options: 
   chunk_output_type: console
 output:
@@ -26,43 +26,74 @@ fl_votes %>%
 
 # Exercise 1
 
-```{r add-winner}
+Modify the add-winner code chunk to mutate() a new variable winner20 describing who won each Florida county in the 2020 Presidential election. The function if_else will be helpful. if_else(condition, true, false) assigns true if the first condition is TRUE and assigns false if the first condition is FALSE. 
 
+```{r add-winner}
+fl_votes <- fl_votes %>% mutate(winner20 = if_else(rep20 > dem20,"Donald Trump","joe Byeden"))
 ```
 
 
 # Exercise 2
 
+Modify the fl-plot-1 code chunk to create a plot of Florida’s 2020 U.S. Presidential election results by county, with counties colored by winner20. Use informative colors with the scale_fill_manual() function. The colors “#DE0100” and “#0015BC” look good for Republicans and Democrats, respectively, but the choice is yours. 
+
 ```{r fl-plot-1}
-
-
+ggplot(fl_votes) +
+  geom_sf(aes(fill = winner20)) + scale_fill_manual(values = c("#DE0100", "#0015BC")) +
+  labs(title = "The Winner Of Each Country In 2020 Election",
+       fill = "Winner") + 
+  theme_bw() 
 ```
+
 
 # Exercise #3
 
-```{r fl-props}
+Create two new variables using mutate() in the fl-props code chunk. prop_rep16 is the Republican share of the two party vote in the 2016 Presidential election and prop_rep20 is the Republican share of the two party vote in the 2020 Presidential election. 
 
+```{r fl-props}
+fl_votes <- fl_votes %>% mutate(prop_rep16 = rep16/(rep16 + dem16))
+fl_votes <- fl_votes %>% mutate(prop_rep20 = rep20/(rep20 + dem20))
 ```
+
 
 # Exercise 4
 
-```{r fl-plot-2}
+Modify the fl-plot-2 code chunk to create a plot of the 2020 U.S. Presidential results by county, with counties colored according to the proportion of the two party vote cast for the Republican candidate. The scale_fill_gradient() function will be helpful for effective coloring (but there are other possibilities). 
 
+```{r fl-plot-2}
+ggplot(fl_votes) +
+  geom_sf(aes(fill = prop_rep20)) + scale_fill_gradient(low = "#DE0100", high = "#0015BC")+
+  labs(title = "The Winner Of Each Country In 2020 Election",
+       fill = "winner") + 
+  theme_bw() 
 ```
+
 
 # Exercise 5
 
-```{r fl-change}
+Create a new variable diff_rep using mutate() in the fl-change code chunk, representing the change in the two party vote share between 2016 and 2020 (prop_rep20 - prop_rep16).
 
+```{r fl-change}
+fl_votes <- fl_votes %>% mutate(diff_rep = prop_rep20 - prop_rep16)
 ```
+
 
 # Exercise 6
 
-```{r fl-plot-3}
+Modify the fl-plot-3 code chunk to plot the change in Republican vote share by county between 2016 and 2020. The scale_fill_gradient2() function will be helpful for effective coloring. 
 
+```{r fl-plot-3}
+ggplot(fl_votes) +
+  geom_sf(aes(fill = diff_rep)) + scale_fill_gradient2(low = "#DE0100", midpoint = 0, high= "#0015BC")+
+  labs(title = "Republican Vote Share By County Between 2016 And 2020 ",
+       fill = "Change in Republican Share") + 
+  theme_bw() 
 ```
+
 
 # Exercise 7
 
+What do the visualizations you developed tell you about the 2016 and 2020 Presidential election in Florida? What are limitations of these visualizations?
 
+As we see that they preferred Donald trump over joe byeden
 
